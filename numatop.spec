@@ -1,13 +1,13 @@
 Name:           numatop
 Version:        1.0.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Memory access locality characterization and analysis
 Group:          System Environment/Base
 
 License:        BSD
 URL:            https://01.org/numatop
 Source0:        https://01.org/sites/default/files/%{name}_linux_%{version}.tar.gz
-
+Patch0:         0001-Fix-LMA-on-Westmere-EP.patch
 BuildRequires:  numactl-devel ncurses-devel glibc-devel gcc
 Requires:       glibc numactl ncurses-libs kernel >= 2.6.32-584
 ExclusiveArch:  %{ix86} x86_64
@@ -23,6 +23,7 @@ NumaTOP supports the Intel Xeon processors.
 
 %prep
 %setup -q -n %{name}
+%patch0 -p1
 
 %build
 make CFLAGS="%{optflags}" %{?_smp_mflags}
@@ -38,6 +39,10 @@ make install PREFIXDIR=%{buildroot}%{_prefix} MANDIR=%{buildroot}%{_mandir}/man8
 %{_mandir}/man8/%{name}.8*
 
 %changelog
+* Tue Oct 18 2016 Petr Oros <poros@redhat.com> 1.0.3-2
+- Fix LMA on Westmere EP
+- Resolves: #1308627
+
 * Tue Sep 1 2015 Petr Oros <poros@redhat.com> 1.0.3-1
 - New upstream release with support for Haswell processors
 - Resolves: #1238316
