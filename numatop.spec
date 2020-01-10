@@ -1,6 +1,6 @@
 Name:           numatop
-Version:        1.0.2
-Release:        5%{?dist}
+Version:        1.0.3
+Release:        1%{?dist}
 Summary:        Memory access locality characterization and analysis
 Group:          System Environment/Base
 
@@ -9,7 +9,7 @@ URL:            https://01.org/numatop
 Source0:        https://01.org/sites/default/files/%{name}_linux_%{version}.tar.gz
 
 BuildRequires:  numactl-devel ncurses-devel glibc-devel gcc
-Requires:       glibc numactl ncurses-libs kernel >= 2.6.32-461
+Requires:       glibc numactl ncurses-libs kernel >= 2.6.32-584
 ExclusiveArch:  %{ix86} x86_64
 
 %description
@@ -38,6 +38,10 @@ make install PREFIXDIR=%{buildroot}%{_prefix} MANDIR=%{buildroot}%{_mandir}/man8
 %{_mandir}/man8/%{name}.8*
 
 %changelog
+* Tue Sep 1 2015 Petr Oros <poros@redhat.com> 1.0.3-1
+- New upstream release with support for Haswell processors
+- Resolves: #1238316
+
 * Tue Jun 3 2014 Petr Oros <poros@redhat.com>
 - spec: added requires kernel with PEBS Load Latency support
 - Resolves: #1066152
